@@ -7,6 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabase";
+import { signIn } from './actions'
 
 function GoogleIcon() {
   return (
@@ -45,19 +46,12 @@ export default function LoginPage() {
     setError(null);
     setLoading(true);
 
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (signInError) {
-      setError(signInError.message);
-      return;
+    const result = await signIn(email, password)
+  
+    if (result?.error) {
+      setError(result.error);
+      setLoading(false);
     }
-
-    router.push("/dashboard");
   }
 
   async function handleGoogleSignIn() {
