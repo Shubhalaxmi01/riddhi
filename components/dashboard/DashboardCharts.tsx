@@ -55,7 +55,7 @@ export function DashboardCharts({
                 tick={{ fontSize: 11, fill: "#888" }}
               />
               <Tooltip
-                formatter={(value: number) => formatCurrency(value)}
+                formatter={(value) => formatCurrency(Number(value as number))}
                 contentStyle={{ fontSize: 12, borderRadius: 8 }}
               />
               <Legend
@@ -98,7 +98,7 @@ export function DashboardCharts({
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number) => formatCurrency(value)}
+                  formatter={(value) => formatCurrency(Number(value as number))}
                   contentStyle={{ fontSize: 12, borderRadius: 8 }}
                 />
               </PieChart>
