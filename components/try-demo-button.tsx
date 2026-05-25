@@ -1,23 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase";
+import { signInDemo } from '@/app/login/actions'
 
 export function TryDemoButton() {
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   async function handleDemo() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: "demo@riddhi.com",
-      password: "demo1234",
-    });
-    setLoading(false);
-    if (!error) {
-      router.push("/dashboard");
+    setLoading(true)
+    const result = await signInDemo()
+    if (result?.error) {
+      console.error(result.error)
+      setLoading(false)
     }
   }
 
